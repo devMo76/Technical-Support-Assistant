@@ -1,26 +1,45 @@
-# Technical Support Assistant
+## Run locally
 
-An Arabic-English AI assistant for helping support staff answer
-questions about Paperless-ngx.
+Requirements: Python 3.13 and Node.js 22.
 
-## Planned features
+### First-time setup
 
-- Search official documentation.
-- Answer questions with source references.
-- Search previous GitHub issues.
-- Prepare tickets for user review and approval.
+From the project root:
 
-## Planned technology
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r backend/requirements.txt
+cd frontend
+npm ci
+cd ..
+```
 
-- Frontend: Next.js and TypeScript
-- Backend: Python and FastAPI
-- AI: Claude API
-- Database: Supabase PostgreSQL with pgvector
-- GitHub integration: MCP
+Create `backend/.env` using `backend/.env.example` as a template.
+Add your API key locally. Never commit the real `.env`.
 
-## Current progress
+### Start the backend
 
-- Documentation and starter QA questions prepared.
-- Local Python environment created.
-- GitHub repository connected.
-- Application development has not started.
+From the project root:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn backend.main:app --reload
+```
+
+Health check: http://127.0.0.1:8000/health
+
+### Start the frontend
+
+In a second terminal:
+
+```powershell
+cd frontend
+npm run dev
+```
+
+Website: http://localhost:3000
+
+## Automated checks
+
+GitHub Actions checks backend dependencies and Python syntax,
+then runs frontend linting and a production build.
+These checks do not make paid Claude requests.
