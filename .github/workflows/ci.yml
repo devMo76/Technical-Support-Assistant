@@ -25,6 +25,7 @@ jobs:
           python -m pip check
           python -m compileall -q backend
           python -c "from backend.main import app; import anthropic"
+          python -m unittest discover -s backend/tests
 
   frontend:
     runs-on: ubuntu-latest
@@ -48,6 +49,9 @@ jobs:
 
       - name: Check frontend code
         run: npx --no-install eslint .
+
+      - name: Test frontend authentication
+        run: npm test
 
       - name: Build frontend
         run: npm run build
