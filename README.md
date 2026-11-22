@@ -108,3 +108,19 @@ GitHub Actions runs the same backend tests plus frontend tests, linting, and a
 production build. Unit tests mock Supabase. RLS policies must additionally be
 verified against an isolated local or test Supabase database before relying on
 them in production.
+
+## Paperless document chunking
+
+Generate the searchable Paperless records from the five Markdown guides listed
+in `data/paperless/sources.json`:
+
+```powershell
+.\.venv\Scripts\python.exe -m backend.ingestion.chunk_documents
+```
+
+The command verifies every source hash and atomically replaces
+`data/paperless/processed/chunks.jsonl`. Each UTF-8 JSONL record contains the
+chunk `id`, original `text`, source metadata, inclusive source line range, and
+`heading_path` hierarchy. The 2,000-character target is a soft limit: a single
+large paragraph, code block, or table remains intact and produces a warning
+instead of being split or dropped.
