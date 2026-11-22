@@ -1,0 +1,43 @@
+{
+  "tag": "v3.5.1",
+  "commit": "35b0439195bbdb87a6d519152e6782abe0720c3b",
+  "release_url": "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.5.1",
+  "files": [
+    {
+      "file": "documents/usage.md",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+      "sha256": "b9285be10ce7dbdfec836d4215cf7cebd531a3f13b3bf9d5921b1db975b9323d",
+      "bytes": 76171
+    },
+    {
+      "file": "documents/setup.md",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+      "sha256": "4eb964c64d5164c2921af45dd6de56eb9a1ecf6ac9dadbb1c7a8f2699a68ce59",
+      "bytes": 28190
+    },
+    {
+      "file": "documents/configuration.md",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+      "sha256": "89079c9479c02161bf514a06936e4e742c75077fe50d350db6638e039b8c26e4",
+      "bytes": 100240
+    },
+    {
+      "file": "documents/troubleshooting.md",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+      "sha256": "21abd574e485f8c445d654af5f96b82c042a0d16a355bb318cc36f63283fcf81",
+      "bytes": 14305
+    },
+    {
+      "file": "documents/administration.md",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/administration.md",
+      "sha256": "f41377ae8ce286255fe62cab6e518392cc906655aa3a33e2b183f8ca1a615669",
+      "bytes": 28740
+    },
+    {
+      "file": "LICENSE",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/LICENSE",
+      "sha256": "d62f065830aa3739cc031156b9690805c7b2e811b4a178c8b4acd8725d561c94",
+      "bytes": 35142
+    }
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "purpose": "Development starter cases, not a held-out set",
+  "origin": "Author-created questions based on real documented situations; not collected from pilot staff",
+  "version": "v3.5.1",
+  "cases": [
+    {
+      "id": "Q01",
+      "language": "EN",
+      "answerable": true,
+      "question": "Can I assign more than one tag to a document?",
+      "expected_answer": "Yes. A document can have multiple tags, so it can belong to several groups.",
+      "evidence": [
+        {
+          "file": "documents/usage.md",
+          "lines": [
+            30,
+            52
+          ],
+          "passage": "with a single tag, however, a single document can also have multiple\n  tags. This is not possible with folders. The reason folders are not\n  implemented in paperless is simply that tags are much more versatile\n  than folders.\n- A _document type_ is used to demarcate the type of a document such\n  as letter, bank statement, invoice, contract, etc. It is used to\n  identify what a document is about.\n- The document _storage path_ is the location where the document files\n  are stored. See [Storage Paths](advanced_usage.md#storage-paths) for\n  more information.\n- The _date added_ of a document is the date the document was scanned\n  into paperless. You cannot and should not change this date.\n- The _date created_ of a document is the date the document was\n  initially issued. This can be the date you bought a product, the\n  date you signed a contract, or the date a letter was sent to you.\n- The _archive serial number_ (short: ASN) of a document is the\n  identifier of the document in your physical document binders. See\n  [recommended workflow](#usage-recommended-workflow) below.\n- The _content_ of a document is the text that was OCR'ed from the\n  document. This text is fed into the search engine and is used for\n  matching tags, correspondents and document types.\n- Paperless-ngx also supports _custom fields_ which can be used to\n  store additional metadata about a document.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L30-L52"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q02",
+      "language": "AR",
+      "answerable": true,
+      "question": "أنشأت مستخدمًا جديدًا، لكنه لا يستطيع استخدام أجزاء من النظام. ما الذي أراجعه؟",
+      "expected_answer": "راجع الصلاحيات المباشرة وصلاحيات المجموعات. المستخدم الجديد لا يحصل افتراضيًا على صلاحيات، باستثناء ما يرثه من مجموعاته.",
+      "evidence": [
+        {
+          "file": "documents/usage.md",
+          "lines": [
+            409,
+            409
+          ],
+          "passage": "By default, new users are not granted any permissions, except those inherited from any group(s) of which they are a member.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L409-L409"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q03",
+      "language": "AR",
+      "answerable": true,
+      "question": "هل تغيير صلاحيات الوسم يغيّر صلاحيات المستندات التي تحمل هذا الوسم؟",
+      "expected_answer": "لا. صلاحيات الوسم تخص الوسم نفسه، ولا تغيّر صلاحيات المستندات المرتبطة به.",
+      "evidence": [
+        {
+          "file": "documents/usage.md",
+          "lines": [
+            385,
+            386
+          ],
+          "passage": "Object-level permissions only apply to the object itself. In other words, setting permissions\n    for a Tag will _not_ affect the permissions of documents that have the Tag.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L385-L386"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q04",
+      "language": "EN",
+      "answerable": true,
+      "question": "What must I configure to enable password reset emails?",
+      "expected_answer": "Configure an SMTP backend, including PAPERLESS_EMAIL_HOST. Also configure PAPERLESS_URL or its corresponding settings.",
+      "evidence": [
+        {
+          "file": "documents/usage.md",
+          "lines": [
+            465,
+            467
+          ],
+          "passage": "In order to enable the password reset feature you will need to setup an SMTP backend, see\n[`PAPERLESS_EMAIL_HOST`](configuration.md#PAPERLESS_EMAIL_HOST). You should also set\n[`PAPERLESS_URL`](configuration.md#PAPERLESS_URL) and / or its corresponding configuration settings.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L465-L467"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q05",
+      "language": "EN",
+      "answerable": true,
+      "question": "What must be installed before following the Docker Compose installation instructions?",
+      "expected_answer": "Docker and Docker Compose must be installed.",
+      "evidence": [
+        {
+          "file": "documents/setup.md",
+          "lines": [
+            47,
+            48
+          ],
+          "passage": "- Docker and Docker Compose must be [installed](https://docs.docker.com/engine/install/){:target=\"\\_blank\"}.\n- macOS users will need [GNU sed](https://formulae.brew.sh/formula/gnu-sed) with support for running as `sed` as well as [wget](https://formulae.brew.sh/formula/wget).",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md#L47-L48"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q06",
+      "language": "MIXED",
+      "answerable": true,
+      "question": "ما الفرق بين PAPERLESS_OCR_LANGUAGE وPAPERLESS_OCR_LANGUAGES؟",
+      "expected_answer": "الأول يحدد لغة أو لغات OCR المستخدمة فعليًا. الثاني يثبت حزم لغات إضافية في نشر Docker المدعوم. تثبيت اللغة وحده لا يفعّل استخدامها؛ يجب أيضًا تحديد لغة OCR. خيار تثبيت اللغات غير مخصص للحاويات rootless.",
+      "evidence": [
+        {
+          "file": "documents/configuration.md",
+          "lines": [
+            2003,
+            2009
+          ],
+          "passage": ": Additional OCR languages to install. By default, paperless comes\nwith English, German, Italian, Spanish and French. If your language\nis not in this list, install additional languages with this\nconfiguration option. You will need to [find the right LangCodes](https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html)\nbut note that [tesseract-ocr-\\* package names](https://packages.debian.org/bullseye/graphics/)\ndo not always correspond with the language codes e.g. \"chi_tra\" should be\nspecified as \"chi-tra\".",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md#L2003-L2009"
+        },
+        {
+          "file": "documents/configuration.md",
+          "lines": [
+            2017,
+            2018
+          ],
+          "passage": "To actually use these languages, also set the default OCR language\n    of paperless:",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md#L2017-L2018"
+        },
+        {
+          "file": "documents/configuration.md",
+          "lines": [
+            2028,
+            2028
+          ],
+          "passage": "This option must not be used in rootless containers.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md#L2028-L2028"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q07",
+      "language": "EN",
+      "answerable": true,
+      "question": "I put files in the consumption folder, but no documents are added. What should I check first?",
+      "expected_answer": "Check the watched folder or Docker folder mapping, the message broker, and the task processor. Inspect logs and failed tasks in the admin interface. These are checks, not a confirmed diagnosis.",
+      "evidence": [
+        {
+          "file": "documents/troubleshooting.md",
+          "lines": [
+            7,
+            11
+          ],
+          "passage": "- Ensure that the directory you're putting your documents in is the\n  folder paperless is watching. With docker, this setting is performed\n  in the `docker-compose.yml` file. Without Docker, look at the\n  `CONSUMPTION_DIR` setting. Don't adjust this setting if you're\n  using docker.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L7-L11"
+        },
+        {
+          "file": "documents/troubleshooting.md",
+          "lines": [
+            13,
+            15
+          ],
+          "passage": "- Ensure that the broker is up and running. Paperless does its task\n  processing asynchronously, and for documents to arrive at the task\n  processor, it needs the broker to run.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L13-L15"
+        },
+        {
+          "file": "documents/troubleshooting.md",
+          "lines": [
+            17,
+            18
+          ],
+          "passage": "- Ensure that the task processor is running. Docker does this\n  automatically. Manually invoke the task processor by executing",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L17-L18"
+        },
+        {
+          "file": "documents/troubleshooting.md",
+          "lines": [
+            26,
+            27
+          ],
+          "passage": "- Go to the admin interface, and check if there are failed tasks. If\n  so, the tasks will contain an error message.",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L26-L27"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q08",
+      "language": "EN",
+      "answerable": true,
+      "question": "Processing document.pdf fails with [Errno 13] Permission denied in the consumption directory. What should I check?",
+      "expected_answer": "Check that Paperless can delete files there and that the host directory is readable and writable. For Docker, verify USERMAP_UID and USERMAP_GID match the intended host user/group when they differ from the default 1000.",
+      "evidence": [
+        {
+          "file": "documents/troubleshooting.md",
+          "lines": [
+            144,
+            147
+          ],
+          "passage": "This happens when paperless does not have permission to delete files\ninside the consumption directory. Ensure that `USERMAP_UID` and\n`USERMAP_GID` are set to the user id and group id you use on the host\noperating system, if these are different from `1000`. See [Docker setup](setup.md#docker).",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L144-L147"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q09",
+      "language": "EN",
+      "answerable": true,
+      "question": "Does the document exporter include document metadata as well as files?",
+      "expected_answer": "Yes. Its target includes documents, thumbnails, and manifest.json. The manifest contains database metadata such as correspondents and tags.",
+      "evidence": [
+        {
+          "file": "documents/administration.md",
+          "lines": [
+            309,
+            311
+          ],
+          "passage": "`target` is a folder to which the data gets written. This includes\ndocuments, thumbnails and a `manifest.json` file. The manifest contains\nall metadata from the database (correspondents, tags, etc).",
+          "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/administration.md#L309-L311"
+        }
+      ],
+      "review_status": "source_checked; application_not_tested"
+    },
+    {
+      "id": "Q10",
+      "language": "EN",
+      "answerable": false,
+      "question": "How much free disk space is on my Paperless server right now?",
+      "expected_answer": "Explain that static documentation cannot reveal live server disk usage. Ask the user for current disk-usage information; do not invent a number or claim to have inspected the server.",
+      "evidence": [],
+      "review_status": "reviewed as requiring live instance data; application_not_tested"
+    }
+  ]
+}
