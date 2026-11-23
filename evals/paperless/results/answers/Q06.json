@@ -1,0 +1,130 @@
+{
+  "case_id": "Q06",
+  "question": "ما الفرق بين PAPERLESS_OCR_LANGUAGE وPAPERLESS_OCR_LANGUAGES؟",
+  "expected_language": "MIXED",
+  "answerable": true,
+  "expected_answer": "الأول يحدد لغة أو لغات OCR المستخدمة فعليًا. الثاني يثبت حزم لغات إضافية في نشر Docker المدعوم. تثبيت اللغة وحده لا يفعّل استخدامها؛ يجب أيضًا تحديد لغة OCR. خيار تثبيت اللغات غير مخصص للحاويات rootless.",
+  "expected_evidence": [
+    {
+      "file": "documents/configuration.md",
+      "lines": [
+        2003,
+        2009
+      ],
+      "passage": ": Additional OCR languages to install. By default, paperless comes\nwith English, German, Italian, Spanish and French. If your language\nis not in this list, install additional languages with this\nconfiguration option. You will need to [find the right LangCodes](https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html)\nbut note that [tesseract-ocr-\\* package names](https://packages.debian.org/bullseye/graphics/)\ndo not always correspond with the language codes e.g. \"chi_tra\" should be\nspecified as \"chi-tra\".",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md#L2003-L2009"
+    },
+    {
+      "file": "documents/configuration.md",
+      "lines": [
+        2017,
+        2018
+      ],
+      "passage": "To actually use these languages, also set the default OCR language\n    of paperless:",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md#L2017-L2018"
+    },
+    {
+      "file": "documents/configuration.md",
+      "lines": [
+        2028,
+        2028
+      ],
+      "passage": "This option must not be used in rootless containers.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md#L2028-L2028"
+    }
+  ],
+  "generated_result": {
+    "answer": "الفرق بين الإعدادين أن `PAPERLESS_OCR_LANGUAGE` هو لغة التعرف الضوئي المستخدمة فعليًا عند معالجة المستندات، بينما `PAPERLESS_OCR_LANGUAGES` هو لتثبيت حزم لغات إضافية للتعرف الضوئي في نشر Docker.\n\n- `PAPERLESS_OCR_LANGUAGE` يحدد اللغة التي سيحاول Paperless استخدامها عند تحليل المستندات، ويجب أن تكون رمزًا من ثلاثة أحرف، ويمكن دمج عدة لغات مثل `deu+eng` [S1].\n- `PAPERLESS_OCR_LANGUAGES` يحدد لغات OCR إضافية يجب تثبيتها، وهو خاص بنشر Docker، ويُكتب كقائمة مفصولة بمسافات، ولا يُستخدم في الحاويات بدون صلاحيات root (rootless) [S3].\n- إذا أضفت لغة غير مثبتة افتراضيًا، فستحتاج إلى `PAPERLESS_OCR_LANGUAGES` لتثبيتها، ثم تضبط `PAPERLESS_OCR_LANGUAGE` لاستخدامها [S1][S3].",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "0c53869d3c04f7519aa7f3f227a7e291b777446ec32713cf64a8cf61826218c5",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "OCR settings {#ocr}",
+          "[`PAPERLESS_OCR_LANGUAGE=<lang>`](#PAPERLESS_OCR_LANGUAGE) {#PAPERLESS_OCR_LANGUAGE}"
+        ],
+        "start_line": 899,
+        "end_line": 920,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_OCR_LANGUAGE=<lang>`](#PAPERLESS_OCR_LANGUAGE) {#PAPERLESS_OCR_LANGUAGE}\n\n: Customize the language that paperless will attempt to use when\nparsing documents.\n\n    It should be a 3-letter code, see the list of [languages Tesseract supports](https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html).\n\n    Set this to the language most of your documents are written in.\n\n    This can be a combination of multiple languages such as `deu+eng`,\n    in which case Tesseract will use whatever language matches best.\n    Keep in mind that Tesseract uses much more CPU time with multiple\n    languages enabled.\n\n    If you are including languages that are not installed by default, you will need to also set [`PAPERLESS_OCR_LANGUAGES`](configuration.md#PAPERLESS_OCR_LANGUAGES) for docker deployments or install the tesseract language packages manually for bare metal installations.\n\n    Defaults to \"eng\".\n\n    !!! note\n\n        If your language contains a '-' such as chi-sim, you must use `chi_sim`.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "b41cff4b509913ac495ae25fadf26e411bc015458538ee2fa6a1690ce1bdb34d",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Software tweaks {#software_tweaks}",
+          "[`PAPERLESS_DATE_PARSER_LANGUAGES=<lang>`](#PAPERLESS_DATE_PARSER_LANGUAGES) {#PAPERLESS_DATE_PARSER_LANGUAGES}"
+        ],
+        "start_line": 1244,
+        "end_line": 1261,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_DATE_PARSER_LANGUAGES=<lang>`](#PAPERLESS_DATE_PARSER_LANGUAGES) {#PAPERLESS_DATE_PARSER_LANGUAGES}\n\n: Specifies which language Paperless should use when parsing dates from documents.\n\n: This should be a language code supported by the dateparser library,\nfor example: \"en\", or a combination such as \"en+de\".\nLocales are also supported (e.g., \"en-AU\").\nMultiple languages can be combined using \"+\", for example: \"en+de\" or \"en-AU+de\".\nFor valid values, refer to the list of supported languages and locales in the [dateparser documentation](https://dateparser.readthedocs.io/en/latest/supported_locales.html).\n\n: Set this to match the languages in which most of your documents are written.\n\n    If not set, Paperless will attempt to infer the language(s) from the OCR configuration (`PAPERLESS_OCR_LANGUAGE`).\n\n    !!! note\n\n        This format differs from the `PAPERLESS_OCR_LANGUAGE` setting, which uses ISO 639-2 codes (3 letters, e.g., \"eng+deu\" for Tesseract OCR).\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "8359f36f11d1245762698c8aed614a17f0b1e69f4e60eeef82ebf54b0a4fe8cc",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Docker-specific options {#docker}",
+          "[`PAPERLESS_OCR_LANGUAGES=<list>`](#PAPERLESS_OCR_LANGUAGES) {#PAPERLESS_OCR_LANGUAGES}"
+        ],
+        "start_line": 2001,
+        "end_line": 2029,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_OCR_LANGUAGES=<list>`](#PAPERLESS_OCR_LANGUAGES) {#PAPERLESS_OCR_LANGUAGES}\n\n: Additional OCR languages to install. By default, paperless comes\nwith English, German, Italian, Spanish and French. If your language\nis not in this list, install additional languages with this\nconfiguration option. You will need to [find the right LangCodes](https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html)\nbut note that [tesseract-ocr-\\* package names](https://packages.debian.org/bullseye/graphics/)\ndo not always correspond with the language codes e.g. \"chi_tra\" should be\nspecified as \"chi-tra\".\n\n    ``` bash\n    PAPERLESS_OCR_LANGUAGES=tur ces chi-tra\n    ```\n\n    Make sure it's a space-separated list when using several values.\n\n    To actually use these languages, also set the default OCR language\n    of paperless:\n\n    ``` bash\n    PAPERLESS_OCR_LANGUAGE=tur\n    ```\n\n    Defaults to none, which does not install any additional languages.\n\n    !!! warning\n\n         This option must not be used in rootless containers.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "7cd814b8150028bc62b4abf7799760e632a0138c033d8f86ecff12d588d1cea7",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Software tweaks {#software_tweaks}",
+          "[`PAPERLESS_SEARCH_LANGUAGE=<language>`](#PAPERLESS_SEARCH_LANGUAGE) {#PAPERLESS_SEARCH_LANGUAGE}"
+        ],
+        "start_line": 1289,
+        "end_line": 1306,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_SEARCH_LANGUAGE=<language>`](#PAPERLESS_SEARCH_LANGUAGE) {#PAPERLESS_SEARCH_LANGUAGE}\n\n: Sets the stemmer language for the full-text search index.\nStemming improves recall by matching word variants (e.g. \"running\" matches \"run\").\nChanging this setting causes the index to be rebuilt automatically on next startup.\nAn invalid value raises an error at startup.\n\n: Use the ISO 639-1 two-letter code (e.g. `en`, `de`, `fr`). Lowercase full names\n(e.g. `english`, `german`, `french`) are also accepted. The capitalized names shown\nin the [Tantivy Language enum](https://docs.rs/tantivy/latest/tantivy/tokenizer/enum.Language.html)\ndocumentation are **not** valid — use the lowercase equivalent.\n\n: If not set, paperless infers the language from\n[`PAPERLESS_OCR_LANGUAGE`](#PAPERLESS_OCR_LANGUAGE). If the OCR language has no\nTantivy stemmer equivalent, stemming is disabled.\n\n    Defaults to unset (inferred from `PAPERLESS_OCR_LANGUAGE`).\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "2daa2686167a9bf4639f4c360d835295b6f97afca92b3b438365621b440270e8",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "OCR settings {#ocr}",
+          "[`PAPERLESS_OCR_MODE=<mode>`](#PAPERLESS_OCR_MODE) {#PAPERLESS_OCR_MODE}"
+        ],
+        "start_line": 921,
+        "end_line": 958,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_OCR_MODE=<mode>`](#PAPERLESS_OCR_MODE) {#PAPERLESS_OCR_MODE}\n\n: Tell paperless when and how to perform ocr on your documents. Four\nmodes are available:\n\n    -   `auto` (default): Paperless detects whether a document already\n        has embedded text via pdftotext. If sufficient text is found,\n        OCR is skipped for that document (`--skip-text`). If no text is\n        present, OCR runs normally. This is the safest option for mixed\n        document collections.\n\n    -   `redo`: Paperless will OCR all pages of your documents and\n        attempt to replace any existing text layers with new text. This\n        will be useful for documents from scanners that already\n        performed OCR with insufficient results. It will also perform\n        OCR on purely digital documents.\n\n        This option may fail on some documents that have features that\n        cannot be removed, such as forms. In this case, the text from\n        the document is used instead.\n\n    -   `force`: Paperless rasterizes your documents, converting any\n        text into images and puts the OCRed text on top. This works for\n        all documents, however, the resulting document may be\n        significantly larger and text won't appear as sharp when zoomed\n        in.\n\n    -   `off`: Paperless never invokes the OCR engine. For PDFs, text\n        is extracted via pdftotext only. For image documents, text will\n        be empty. Archive file generation still works via format\n        conversion (no Tesseract or Ghostscript required).\n\n    The default is `auto`.\n\n    For the `redo` and `force` modes, read more about OCR\n    behaviour in the [OCRmyPDF\n    documentation](https://ocrmypdf.readthedocs.io/en/latest/advanced.html#when-ocr-is-skipped).\n\n"
+      }
+    ],
+    "answer_language": "Arabic",
+    "used_labels": [
+      "[S1]",
+      "[S3]"
+    ],
+    "input_tokens": 4594,
+    "output_tokens": 469
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "pass",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "Rerun includes the rootless restriction and correctly distinguishes installation from OCR language selection."
+}
+}

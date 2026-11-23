@@ -1,0 +1,97 @@
+{
+  "case_id": "Q10",
+  "question": "How much free disk space is on my Paperless server right now?",
+  "expected_language": "EN",
+  "answerable": false,
+  "expected_answer": "Explain that static documentation cannot reveal live server disk usage. Ask the user for current disk-usage information; do not invent a number or claim to have inspected the server.",
+  "expected_evidence": [],
+  "generated_result": {
+    "answer": "I cannot determine how much free disk space your Paperless server has right now. The supplied documents describe installation, configuration tips, and a sanity checker that looks for missing or corrupted files, but they do not report live disk usage, and I do not have access to your server.",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "98ad5f4b4da77d40ba872ca95b1fb239b4a17a4d3ecf7f0cd3645efa3bdacd2f",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Docker Compose Install {#docker}",
+          "After installation"
+        ],
+        "start_line": 130,
+        "end_line": 136,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "#### After installation\n\nYour Paperless-ngx instance should now be accessible at\n`http://127.0.0.1:8000` (or similar, depending on your configuration).\nWhen you first access the web interface, you will be prompted to create\na [superuser](usage.md#superusers) account.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "4c2022bcc54c85614f09ed59455d3156d95cfe8e1a86e7a9d2a3cb059afa0e04",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Bare Metal Install {#bare_metal}",
+          "After installation"
+        ],
+        "start_line": 422,
+        "end_line": 426,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "#### After installation\n\nYour Paperless-ngx instance should now be accessible at `http://localhost:8000` (or similar, depending on your configuration).\nWhen you first access the web interface you will be prompted to create a [superuser](usage.md#superusers) account.\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "3465f01ffefd4df60f25bd196a599f608d0e688af00e2683a6d8bcc3d43ff672",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Running Paperless-ngx on less powerful devices {#less-powerful-devices data-toc-label=\"Less Powerful Devices\"}"
+        ],
+        "start_line": 614,
+        "end_line": 641,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "- Stick with SQLite to save some resources. See [troubleshooting](troubleshooting.md#log-reports-creating-paperlesstask-failed)\n  if you encounter issues with SQLite locking.\n- If you do not need the filesystem-based consumer, consider disabling it\n  entirely by setting [`PAPERLESS_CONSUMER_DISABLE`](configuration.md#PAPERLESS_CONSUMER_DISABLE) to `true`.\n- Consider setting [`PAPERLESS_OCR_PAGES`](configuration.md#PAPERLESS_OCR_PAGES) to 1, so that Paperless\n  OCRs only the first page of your documents. In most cases, this page\n  contains enough information to be able to find it.\n- [`PAPERLESS_TASK_WORKERS`](configuration.md#PAPERLESS_TASK_WORKERS) and [`PAPERLESS_THREADS_PER_WORKER`](configuration.md#PAPERLESS_THREADS_PER_WORKER) are\n  configured to use all cores. The Raspberry Pi models 3 and up have 4\n  cores, meaning that Paperless will use 2 workers and 2 threads per\n  worker. This may result in sluggish response times during\n  consumption, so you might want to lower these settings (example: 2\n  workers and 1 thread to always have some computing power left for\n  other tasks).\n- Keep [`PAPERLESS_OCR_MODE`](configuration.md#PAPERLESS_OCR_MODE) at its default value `auto` and consider\n  OCRing your documents before feeding them into Paperless. Some\n  scanners are able to do this!\n- Set [`PAPERLESS_ARCHIVE_FILE_GENERATION`](configuration.md#PAPERLESS_ARCHIVE_FILE_GENERATION) to `never` to skip archive\n  file generation entirely, saving disk space at the cost of in-browser PDF/A viewing.\n- If you want to perform OCR on the device, consider using\n  `PAPERLESS_OCR_CLEAN=none`. This will speed up OCR times and use\n  less memory at the expense of slightly worse OCR results.\n- If using Docker, consider setting [`PAPERLESS_WEBSERVER_WORKERS`](configuration.md#PAPERLESS_WEBSERVER_WORKERS) to 1. This will save some memory.\n\nFor details, refer to [configuration](configuration.md).\n\n!!! note\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "dce763f4d5cdb875a2102b596fc2b100470c64c04ff00d85aaa8019d9fdfddb2",
+        "file": "documents/administration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Administration",
+          "Management utilities {#management-commands}",
+          "Sanity checker {#sanity-checker}"
+        ],
+        "start_line": 617,
+        "end_line": 644,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/administration.md",
+        "text": "### Sanity checker {#sanity-checker}\n\nPaperless has a built-in sanity checker that inspects your document\ncollection for issues.\n\nThe issues detected by the sanity checker are as follows:\n\n- Missing original files.\n- Missing archive files.\n- Inaccessible original files due to improper permissions.\n- Inaccessible archive files due to improper permissions.\n- Corrupted original documents by comparing their checksum against\n  what is stored in the database.\n- Corrupted archive documents by comparing their checksum against what\n  is stored in the database.\n- Missing thumbnails.\n- Inaccessible thumbnails due to improper permissions.\n- Documents without any content (warning).\n- Orphaned files in the media directory (warning). These are files\n  that are not referenced by any document in paperless.\n\n```\ndocument_sanity_checker\n```\n\nThe command takes no arguments. Depending on the size of your document\narchive, this may take some time.\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "e96f6f972e6ff2dc7d8714c23205c0a828b0c38f39a96df88dd80068dfa7439f",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Running Paperless-ngx on less powerful devices {#less-powerful-devices data-toc-label=\"Less Powerful Devices\"}"
+        ],
+        "start_line": 642,
+        "end_line": 651,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "    Updating the\n    [automatic matching algorithm](advanced_usage.md#automatic-matching) takes quite a bit of time. However, the update mechanism\n    checks if your data has changed before doing the heavy lifting. If you\n    experience the algorithm taking too much CPU time, consider changing the\n    schedule in the admin interface to daily. You can also manually invoke\n    the task by changing the date and time of the next run to today/now.\n\n    The actual matching of the algorithm is fast and works on Raspberry Pi\n    as well as on any other device.\n\n"
+      }
+    ],
+    "answer_language": "English",
+    "used_labels": [],
+    "input_tokens": 3415,
+    "output_tokens": 82
+  },
+  "review": {
+  "correctness": "partial",
+  "citation_support": "not_applicable",
+  "language": "pass",
+  "abstention": "pass",
+  "notes": "Correctly acknowledges unavailable live data. Does not request current disk-usage information as expected; prompt currently instructs it to stop."
+}
+}

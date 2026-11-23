@@ -1,0 +1,110 @@
+{
+  "case_id": "Q01",
+  "question": "Can I assign more than one tag to a document?",
+  "expected_language": "EN",
+  "answerable": true,
+  "expected_answer": "Yes. A document can have multiple tags, so it can belong to several groups.",
+  "expected_evidence": [
+    {
+      "file": "documents/usage.md",
+      "lines": [
+        30,
+        52
+      ],
+      "passage": "with a single tag, however, a single document can also have multiple\n  tags. This is not possible with folders. The reason folders are not\n  implemented in paperless is simply that tags are much more versatile\n  than folders.\n- A _document type_ is used to demarcate the type of a document such\n  as letter, bank statement, invoice, contract, etc. It is used to\n  identify what a document is about.\n- The document _storage path_ is the location where the document files\n  are stored. See [Storage Paths](advanced_usage.md#storage-paths) for\n  more information.\n- The _date added_ of a document is the date the document was scanned\n  into paperless. You cannot and should not change this date.\n- The _date created_ of a document is the date the document was\n  initially issued. This can be the date you bought a product, the\n  date you signed a contract, or the date a letter was sent to you.\n- The _archive serial number_ (short: ASN) of a document is the\n  identifier of the document in your physical document binders. See\n  [recommended workflow](#usage-recommended-workflow) below.\n- The _content_ of a document is the text that was OCR'ed from the\n  document. This text is fed into the search engine and is used for\n  matching tags, correspondents and document types.\n- Paperless-ngx also supports _custom fields_ which can be used to\n  store additional metadata about a document.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L30-L52"
+    }
+  ],
+  "generated_result": {
+    "answer": "Yes. The supplied documents state that a single document can have multiple tags: \"Multiple documents can be grouped together with a single tag, however, a single document can also have multiple tags.\" [S2]\n\nThe retagger documentation also notes that \"any amount of tags can be applied to a document.\" [S4]",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "12a9248af98fb497bab322c5b5812c6a1bc2dc9d6f82b4c817ee25eef72b058f",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Best practices {#basic-searching}"
+        ],
+        "start_line": 889,
+        "end_line": 923,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "    This can be used in many different ways. One example: Imagine you're\n    working on a particular task, such as signing up for university. Usually\n    you'll need to collect a bunch of different documents that are already\n    sorted into various folders. With the tag system of paperless, you can\n    create a new group of documents that are relevant to this task without\n    destroying the already existing organization. When you're done with the\n    task, you could delete the tag again, which would be equal to sorting\n    documents back into the folder they belong into. Or keep the tag, up to\n    you.\n\nAll of the logic above applies to correspondents as well. Attach them to\ndocuments if you feel that they help you organize your collection.\n\nWhen you've started organizing your documents, create a couple saved\nviews for document collections you regularly access. This is equal to\nhaving labeled physical binders on your desk, except that these saved\nviews are dynamic and simply update themselves as you add documents to\nthe system.\n\nHere are a couple examples of tags and types that you could use in your\ncollection.\n\n- An `inbox` tag for newly added documents that you haven't manually\n  edited yet.\n- A tag `car` for everything car related (repairs, registration,\n  insurance, etc)\n- A tag `todo` for documents that you still need to do something with,\n  such as reply, or perform some task online.\n- A tag `bank account x` for all bank statement related to that\n  account.\n- A tag `mail` for anything that you added to paperless via its mail\n  processing capabilities.\n- A tag `missing_metadata` when you still need to add some metadata to\n  a document, but can't or don't want to do this right now.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "a5b9623ced9372433a6cbd544f98a2ad413c3d333d97b10639b8003a2c1f128d",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Terms and definitions"
+        ],
+        "start_line": 24,
+        "end_line": 53,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "- A _Document_ is a piece of paper that sometimes contains valuable\n  information.\n- The _correspondent_ of a document is the person, institution or\n  company that a document either originates from, or is sent to.\n- A _tag_ is a label that you can assign to documents. Think of labels\n  as more powerful folders: Multiple documents can be grouped together\n  with a single tag, however, a single document can also have multiple\n  tags. This is not possible with folders. The reason folders are not\n  implemented in paperless is simply that tags are much more versatile\n  than folders.\n- A _document type_ is used to demarcate the type of a document such\n  as letter, bank statement, invoice, contract, etc. It is used to\n  identify what a document is about.\n- The document _storage path_ is the location where the document files\n  are stored. See [Storage Paths](advanced_usage.md#storage-paths) for\n  more information.\n- The _date added_ of a document is the date the document was scanned\n  into paperless. You cannot and should not change this date.\n- The _date created_ of a document is the date the document was\n  initially issued. This can be the date you bought a product, the\n  date you signed a contract, or the date a letter was sent to you.\n- The _archive serial number_ (short: ASN) of a document is the\n  identifier of the document in your physical document binders. See\n  [recommended workflow](#usage-recommended-workflow) below.\n- The _content_ of a document is the text that was OCR'ed from the\n  document. This text is fed into the search engine and is used for\n  matching tags, correspondents and document types.\n- Paperless-ngx also supports _custom fields_ which can be used to\n  store additional metadata about a document.\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "5d3be3c59025c3ac4865480e8212be90ef21d4cb2ff1500bf6f756ec0bbe237f",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "The Web UI",
+          "Nested Tags"
+        ],
+        "start_line": 114,
+        "end_line": 123,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### Nested Tags\n\nPaperless-ngx v2.19 introduces support for nested tags, allowing you to create a\nhierarchy of tags, which may be useful for organizing your documents. Tags can\nhave a 'parent' tag, creating a tree-like structure, to a maximum depth of 5. When\na tag is added to a document, all of its parent tags are also added automatically\nand similarly, when a tag is removed from a document, all of its child tags are\nalso removed. Additionally, assigning a parent to an existing tag will automatically\nupdate all documents that have this tag assigned, adding the parent tag as well.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "5d978bbfd4c0b4eb575a8b6154633906b33f7a0f11876d7f3bc80586bfa14d88",
+        "file": "documents/administration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Administration",
+          "Management utilities {#management-commands}",
+          "Document retagger {#retagger}"
+        ],
+        "start_line": 429,
+        "end_line": 479,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/administration.md",
+        "text": "### Document retagger {#retagger}\n\nSay you've imported a few hundred documents and now want to introduce a\ntag or set up a new correspondent, and apply its matching to all of the\ncurrently-imported docs. This problem is common enough that there are\ntools for it.\n\n```\ndocument_retagger [-h] [-c] [-T] [-t] [-i] [--id-range] [--use-first] [-f]\n\noptional arguments:\n-c, --correspondent\n-T, --tags\n-t, --document_type\n-s, --storage_path\n-i, --inbox-only\n--id-range\n--use-first\n-f, --overwrite\n```\n\nRun this after changing or adding matching rules. It'll loop over all\nof the documents in your database and attempt to match documents\naccording to the new rules.\n\nSpecify any combination of `-c`, `-T`, `-t` and `-s` to have the\nretagger perform matching of the specified metadata type. If you don't\nspecify any of these options, the document retagger won't do anything.\n\nSpecify `-i` to have the document retagger work on documents tagged with\ninbox tags only. This is useful when you don't want to mess with your\nalready processed documents.\n\nSpecify `--id-range 1 100` to have the document retagger work only on a\nspecific range of document id´s. This can be useful if you have a lot of\ndocuments and want to test the matching rules only on a subset of\ndocuments.\n\nWhen multiple document types or correspondents match a single document,\nthe retagger won't assign these to the document. Specify `--use-first`\nto override this behavior and just use the first correspondent or type\nit finds. This option does not apply to tags, since any amount of tags\ncan be applied to a document.\n\nFinally, `-f` specifies that you wish to overwrite already assigned\ncorrespondents, types and/or tags. The default behavior is to not assign\ncorrespondents and types to documents that have this data already\nassigned. `-f` works differently for tags: By default, only additional\ntags get added to documents, no tags will be removed. With `-f`, tags\nthat don't match a document anymore get removed as well.\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "110f8989a69b3d673970696d429cdb11a1d1bd59bffc667937a4d1514d765856",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "The recommended workflow {#usage-recommended-workflow}",
+          "Processing of documents in paperless"
+        ],
+        "start_line": 1174,
+        "end_line": 1200,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### Processing of documents in paperless\n\nOnce you have scanned in a document, proceed in paperless as follows.\n\n1.  If the document has an ASN, assign the ASN to the document.\n2.  Assign a correspondent to the document (i.e., your employer, bank,\n    etc) This isn't strictly necessary but helps in finding a document\n    when you need it.\n3.  Assign a document type (i.e., invoice, bank statement, etc) to the\n    document This isn't strictly necessary but helps in finding a\n    document when you need it.\n4.  Assign a proper title to the document (the name of an item you\n    bought, the subject of the letter, etc)\n5.  Check that the date of the document is correct. Paperless tries to\n    read the date from the content of the document, but this fails\n    sometimes if the OCR is bad or multiple dates appear on the\n    document.\n6.  Remove inbox tags from the documents.\n\n!!! tip\n\n    You can setup manual matching rules for your correspondents and tags and\n    paperless will assign them automatically. After consuming a couple\n    documents, you can even ask paperless to *learn* when to assign tags and\n    correspondents by itself. For details on this feature, see\n    [advanced matching](advanced_usage.md#matching).\n\n"
+      }
+    ],
+    "answer_language": "English",
+    "used_labels": [
+      "[S2]",
+      "[S4]"
+    ],
+    "input_tokens": 4156,
+    "output_tokens": 93
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "pass",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "Manually reviewed: S2 and S4 support the multiple-tags answer."
+}
+}

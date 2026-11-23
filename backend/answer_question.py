@@ -8,30 +8,6 @@ from pathlib import Path
 from backend.claude_service import ask_claude
 from backend.retrieval.hybrid_search import retrieve
 
-
-def prepare_sources(results):
-    sources = []
-
-    for number, result in enumerate(results, start=1):
-        record = result["record"]
-
-        sources.append(
-            {
-                "label": f"S{number}",
-                "chunk_id": record["id"],
-                "file": record["source_file"],
-                "version": record["source_version"],
-                "headings": record["heading_path"],
-                "start_line": record["start_line"],
-                "end_line": record["end_line"],
-                "url": record["source_url"],
-                "text": record["text"],
-            }
-        )
-
-    return sources
-
-
 SYSTEM_PROMPT = """
 You answer questions about the supplied Paperless-ngx documents.
 
@@ -46,6 +22,11 @@ Determine whether the supplied text answers the actual question.
 Related keywords or related topics are not sufficient evidence.
 
 IF THE QUESTION IS ANSWERABLE
+When recommending a setting or procedure, include source-stated restrictions
+that determine whether it can be used in the user's environment.
+If the environment is unknown, state the relevant restriction conditionally.
+Preserve these restrictions when shortening the answer; remove optional
+examples or background first.
 Give a concise answer supported by the sources.
 Cite each factual claim or instruction using its supporting label, e.g. [S1].
 Include commands only when the supplied text supports those commands.
@@ -75,14 +56,44 @@ documents, and I do not have access to your server."
 """
 
 
-def main():
-    question = input("Enter your question: ").strip()
+def prepare_sources(results):
+    """Attach short citation labels to the retrieved chunks."""
+    sources = []
+
+    for number, result in enumerate(results, start=1):
+        record = result["record"]
+
+        sources.append(
+            {
+                "label": f"S{number}",
+                "chunk_id": record["id"],
+                "file": record["source_file"],
+                "version": record["source_version"],
+                "headings": record["heading_path"],
+                "start_line": record["start_line"],
+                "end_line": record["end_line"],
+                "url": record["source_url"],
+                "text": record["text"],
+            }
+        )
+
+    return sources
+
+
+def generate_answer(question):
+    """Generate an answer without printing or opening the browser."""
+    question = question.strip()
+
+    if not question:
+        raise ValueError("Please enter a question.")
+
     answer_language = "Arabic" if re.search(r"[\u0600-\u06FF]", question) else "English"
+
     results = retrieve(question)
     sources = prepare_sources(results)
 
     if not sources:
-        raise SystemExit("No sources were retrieved.")
+        raise RuntimeError("No sources were retrieved.")
 
     message = json.dumps(
         {
@@ -91,8 +102,6 @@ def main():
         },
         ensure_ascii=False,
     )
-
-    print(f"\nAsking Claude using {len(sources)} sources...")
 
     response = ask_claude(
         message,
@@ -105,30 +114,43 @@ def main():
         max_tokens=700,
     )
 
+    if response.stop_reason == "max_tokens":
+        raise RuntimeError("The answer reached its output limit and may be incomplete.")
+
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Claude did not finish normally: {response.stop_reason}")
+
     answer = "\n".join(
         block.text for block in response.content if block.type == "text"
     ).strip()
 
     if not answer:
-        raise SystemExit("Claude returned no text answer.")
+        raise RuntimeError("Claude returned no text answer.")
 
-    if response.stop_reason == "max_tokens":
-        raise SystemExit("The answer reached its output limit and may be incomplete.")
-
-    # Reject source labels that were not supplied to Claude.
+    # This checks label validity, not whether a citation supports a claim.
     allowed_labels = {f"[{source['label']}]" for source in sources}
     used_labels = set(re.findall(r"\[S[^\]\r\n]*\]", answer))
 
     if used_labels - allowed_labels:
-        raise SystemExit("Claude returned an unknown source reference.")
+        raise RuntimeError("Claude returned an unknown source reference.")
 
-    print(f"\nAnswer:\n{answer}")
-    if answer_language == "Arabic":
-        output_path = (
-            Path(tempfile.gettempdir()) / "technical-support-assistant-answer.html"
-        )
+    return {
+        "answer": answer,
+        "sources": sources,
+        "answer_language": answer_language,
+        "used_labels": sorted(used_labels),
+        "input_tokens": response.usage.input_tokens,
+        "output_tokens": response.usage.output_tokens,
+    }
 
-        page = f"""<!doctype html>
+
+def open_arabic_answer(answer):
+    """Display escaped answer text in a local RTL browser page."""
+    output_path = (
+        Path(tempfile.gettempdir()) / "technical-support-assistant-answer.html"
+    )
+
+    page = f"""<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8">
@@ -157,21 +179,49 @@ def main():
 </html>
 """
 
-        output_path.write_text(page, encoding="utf-8")
-        webbrowser.open(output_path.as_uri())
-        print("Opened the Arabic answer in your browser.")
+    output_path.write_text(page, encoding="utf-8")
+    return webbrowser.open(output_path.as_uri())
 
-    print("\nReferenced sources:")
-    for source in sources:
-        if f"[{source['label']}]" in used_labels:
+
+def main():
+    question = input("Enter your question: ").strip()
+
+    if not question:
+        raise SystemExit("Please enter a question.")
+
+    print("\nSearching documents and asking Claude...")
+
+    try:
+        result = generate_answer(question)
+    except (ValueError, RuntimeError) as error:
+        raise SystemExit(str(error)) from error
+
+    print(f"\nAnswer:\n{result['answer']}")
+
+    if result["answer_language"] == "Arabic":
+        if open_arabic_answer(result["answer"]):
+            print("Opened the Arabic answer in your browser.")
+        else:
+            print("Could not automatically open the Arabic answer.")
+
+    referenced_sources = [
+        source
+        for source in result["sources"]
+        if f"[{source['label']}]" in result["used_labels"]
+    ]
+
+    if referenced_sources:
+        print("\nReferenced sources:")
+
+        for source in referenced_sources:
             print(
                 f"[{source['label']}] {source['file']} "
                 f"lines {source['start_line']}–{source['end_line']}"
             )
             print(source["url"])
 
-    print(f"\nInput tokens: {response.usage.input_tokens}")
-    print(f"Output tokens: {response.usage.output_tokens}")
+    print(f"\nInput tokens: {result['input_tokens']}")
+    print(f"Output tokens: {result['output_tokens']}")
 
 
 if __name__ == "__main__":

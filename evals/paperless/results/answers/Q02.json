@@ -1,0 +1,116 @@
+{
+  "case_id": "Q02",
+  "question": "أنشأت مستخدمًا جديدًا، لكنه لا يستطيع استخدام أجزاء من النظام. ما الذي أراجعه؟",
+  "expected_language": "AR",
+  "answerable": true,
+  "expected_answer": "راجع الصلاحيات المباشرة وصلاحيات المجموعات. المستخدم الجديد لا يحصل افتراضيًا على صلاحيات، باستثناء ما يرثه من مجموعاته.",
+  "expected_evidence": [
+    {
+      "file": "documents/usage.md",
+      "lines": [
+        409,
+        409
+      ],
+      "passage": "By default, new users are not granted any permissions, except those inherited from any group(s) of which they are a member.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L409-L409"
+    }
+  ],
+  "generated_result": {
+    "answer": "لا تحتوي الوثائق المقدمة على خطوات تشخيص محددة لمستخدم جديد لا يستطيع الوصول إلى أجزاء من النظام، لكنها توضح ما يجب مراجعته في إعدادات الصلاحيات:\n\n- **الصلاحيات الافتراضية:** المستخدمون الجدد لا يُمنحون أي صلاحيات، باستثناء ما يرثونه من المجموعات التي ينتمون إليها [S1].\n- **الصلاحيات العامة:** تحدد الصلاحيات العامة أجزاء التطبيق ونقاط نهاية الـ API التي يمكن للمستخدم الوصول إليها، مثل الإنشاء أو التعديل أو الحذف أو العرض [S5].\n- **صلاحيات الكائنات:** تُحدد الصلاحيات على مستوى الكائنات الوثائق أو الوسوم المرئية أو القابلة للتعديل، ولا تؤثر صلاحيات الوسم على الوثائق التي تحمله [S2].\n- **صلاحيات المشرف:** حالة \"Admin Status\" تمنح الوصول إلى سجلات Paperless وحالة النظام وواجهة Django الخلفية [S4].\n\nوبناءً على ذلك، راجع صلاحيات المستخدم الجديد ومجموعاته في Settings > Users & Groups [S1].",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "248fcccf646cc84be2a399139317bdc6a3c3b6a359d470980d4d652fc646f5e2",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Users and Groups"
+        ],
+        "start_line": 400,
+        "end_line": 410,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### Users and Groups\n\nPaperless-ngx supports editing users and groups via the 'frontend' UI, which can be found under\nSettings > Users & Groups, assuming the user has access. If a user is designated\nas a member of a group those permissions will be inherited and this is reflected in the UI. Explicit\npermissions can be granted to limit access to certain parts of the UI (and corresponding API endpoints).\n\n!!! tip\n\n    By default, new users are not granted any permissions, except those inherited from any group(s) of which they are a member.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "647f5218a52a068961430bd51c2a0cd7464366dc4f4d26783f6ca60d91940fad",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions"
+        ],
+        "start_line": 374,
+        "end_line": 390,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "## Permissions\n\nPermissions in Paperless-ngx are based around ['global' permissions](#global-permissions) as well as\n['object-level' permissions](#object-permissions). Global permissions determine which parts of the\napplication a user can access (e.g. Documents, Tags, Settings) and object-level determine which\nobjects are visible or editable. All objects have an 'owner' and 'view' and 'edit' permissions which\ncan be granted to other users or groups. The paperless-ngx permissions system uses the built-in user\nmodel of the backend framework, Django.\n\n!!! tip\n\n    Object-level permissions only apply to the object itself. In other words, setting permissions\n    for a Tag will _not_ affect the permissions of documents that have the Tag.\n\nPermissions can be set using the new \"Permissions\" tab when editing documents, or bulk-applied\nin the UI by selecting documents and choosing the \"Permissions\" button.\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "379052b7467239602ac4f2e4d5839fe5e178391381b27a67220394ede48556ea",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Users and Groups",
+          "Superusers"
+        ],
+        "start_line": 411,
+        "end_line": 419,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "#### Superusers\n\nSuperusers can access all parts of the front and backend application as well as any and all objects. Superuser status can only be granted by another superuser.\n\n!!! tip\n\n    Because superuser accounts can see all objects and documents, you may want to use a regular account for day-to-day use. Additional superuser accounts can\n    be created via [cli](administration.md#create-superuser) or granted superuser status from an existing superuser account.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "284c9669e798dd91bea212f9a62fcabdbb5caa3e365acf9776234f6e7eb00715",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Users and Groups",
+          "Admin Status"
+        ],
+        "start_line": 420,
+        "end_line": 424,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "#### Admin Status\n\nAdmin status (Django 'staff status') grants access to viewing the paperless logs and the system status dialog\nas well as accessing the Django backend.\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "799c8374d93de9f607c4cd27ce5a8eca469545162e456ae2dde70075a4d4f76d",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Users and Groups",
+          "Detailed Explanation of Global Permissions {#global-permissions}"
+        ],
+        "start_line": 425,
+        "end_line": 430,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "#### Detailed Explanation of Global Permissions {#global-permissions}\n\nGlobal permissions define what areas of the app and API endpoints users can access. For example, they\ndetermine if a user can create, edit, delete or view _any_ documents, but individual documents themselves\nstill have \"object-level\" permissions.\n\n"
+      }
+    ],
+    "answer_language": "Arabic",
+    "used_labels": [
+      "[S1]",
+      "[S2]",
+      "[S4]",
+      "[S5]"
+    ],
+    "input_tokens": 2510,
+    "output_tokens": 494
+  },
+  "review": {
+    "correctness": null,
+    "citation_support": null,
+    "language": null,
+    "abstention": null,
+    "notes": ""
+  }
+}

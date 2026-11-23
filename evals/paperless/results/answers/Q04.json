@@ -1,0 +1,114 @@
+{
+  "case_id": "Q04",
+  "question": "What must I configure to enable password reset emails?",
+  "expected_language": "EN",
+  "answerable": true,
+  "expected_answer": "Configure an SMTP backend, including PAPERLESS_EMAIL_HOST. Also configure PAPERLESS_URL or its corresponding settings.",
+  "expected_evidence": [
+    {
+      "file": "documents/usage.md",
+      "lines": [
+        465,
+        467
+      ],
+      "passage": "In order to enable the password reset feature you will need to setup an SMTP backend, see\n[`PAPERLESS_EMAIL_HOST`](configuration.md#PAPERLESS_EMAIL_HOST). You should also set\n[`PAPERLESS_URL`](configuration.md#PAPERLESS_URL) and / or its corresponding configuration settings.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L465-L467"
+    }
+  ],
+  "generated_result": {
+    "answer": "To enable password reset emails, you need to set up an SMTP backend by configuring [`PAPERLESS_EMAIL_HOST`](configuration.md#PAPERLESS_EMAIL_HOST) [S1]. You should also set [`PAPERLESS_URL`](configuration.md#PAPERLESS_URL) and/or its corresponding configuration settings [S1].\n\nSetting an SMTP server for the backend enables the password reset function, along with the Email workflow action and sending documents from the UI. These options come from similarly named Django settings [S2].",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "ef6e19fc99dec35da3310893257fa185c670bcb6c662c79174f5ac76283b4568",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Password reset"
+        ],
+        "start_line": 463,
+        "end_line": 468,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### Password reset\n\nIn order to enable the password reset feature you will need to setup an SMTP backend, see\n[`PAPERLESS_EMAIL_HOST`](configuration.md#PAPERLESS_EMAIL_HOST). You should also set\n[`PAPERLESS_URL`](configuration.md#PAPERLESS_URL) and / or its corresponding configuration settings.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "a440e825bb17c178067dfabbf99c21c73cc08c01d4411a5fb9150366de449a14",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Email sending"
+        ],
+        "start_line": 2070,
+        "end_line": 2074,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "## Email sending\n\nSetting an SMTP server for the backend will allow you to use the Email workflow action, send documents from the UI as well as reset your\npassword. All of these options come from their similarly-named [Django settings](https://docs.djangoproject.com/en/4.2/ref/settings/#email-host)\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "80ed49190d06ddfff1941b9e81b8922497d3f296f35bc346d2364b62be447583",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Incoming Mail {#incoming_mail}",
+          "Email OAuth {#email_oauth}",
+          "[`PAPERLESS_OAUTH_CALLBACK_BASE_URL=<str>`](#PAPERLESS_OAUTH_CALLBACK_BASE_URL) {#PAPERLESS_OAUTH_CALLBACK_BASE_URL}"
+        ],
+        "start_line": 1613,
+        "end_line": 1622,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_OAUTH_CALLBACK_BASE_URL=<str>`](#PAPERLESS_OAUTH_CALLBACK_BASE_URL) {#PAPERLESS_OAUTH_CALLBACK_BASE_URL}\n\n: The base URL for the OAuth callback. This is used to construct the full URL for the OAuth callback. This should be the URL that the Paperless instance is accessible at. If not set, defaults to the `PAPERLESS_URL` setting. At least one of these settings must be set to enable OAuth Email setup.\n\n    Defaults to none (thus will use [PAPERLESS_URL](#PAPERLESS_URL)).\n\n!!! note\n\n    This setting only applies to OAuth Email setup (not to the SSO setup).\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "fe688ae8967b521ff18fbe5102d98b80edf351c01c158a9ce36249c4c44dd691",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Required services",
+          "Database",
+          "[`PAPERLESS_DBPASS=<password>`](#PAPERLESS_DBPASS) {#PAPERLESS_DBPASS}"
+        ],
+        "start_line": 106,
+        "end_line": 111,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_DBPASS=<password>`](#PAPERLESS_DBPASS) {#PAPERLESS_DBPASS}\n\n: Password for the PostgreSQL or MariaDB database user.\n\n    Defaults to `paperless`.\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "c4642664c6ae3848a4e2e916636d27095d435e1b96ccfdfc99027cca3eb17276",
+        "file": "documents/configuration.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Configuration",
+          "Required services",
+          "Message Broker",
+          "[`PAPERLESS_REDIS=<url>`](#PAPERLESS_REDIS) {#PAPERLESS_REDIS}"
+        ],
+        "start_line": 37,
+        "end_line": 54,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/configuration.md",
+        "text": "#### [`PAPERLESS_REDIS=<url>`](#PAPERLESS_REDIS) {#PAPERLESS_REDIS}\n\n: This is required for processing scheduled tasks such as email\nfetching, index optimization and for training the automatic document\nmatcher.\n\n    -   If your broker needs login credentials PAPERLESS_REDIS =\n        `redis://<username>:<password>@<host>:<port>`\n    -   With the requirepass option PAPERLESS_REDIS =\n        `redis://:<password>@<host>:<port>`\n    -   To include the database index PAPERLESS_REDIS =\n        `redis://<username>:<password>@<host>:<port>/<DBIndex>`\n\n    [More information on securing your broker\n    instance](https://valkey.io/topics/security/).\n\n    Defaults to `redis://localhost:6379`.\n\n"
+      }
+    ],
+    "answer_language": "English",
+    "used_labels": [
+      "[S1]",
+      "[S2]"
+    ],
+    "input_tokens": 2843,
+    "output_tokens": 186
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "pass",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "S1 supports password-reset configuration. S2 supports the additional email features; that detail is optional."
+}
+}

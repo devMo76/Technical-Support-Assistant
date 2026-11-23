@@ -1,0 +1,136 @@
+{
+  "case_id": "Q07",
+  "question": "I put files in the consumption folder, but no documents are added. What should I check first?",
+  "expected_language": "EN",
+  "answerable": true,
+  "expected_answer": "Check the watched folder or Docker folder mapping, the message broker, and the task processor. Inspect logs and failed tasks in the admin interface. These are checks, not a confirmed diagnosis.",
+  "expected_evidence": [
+    {
+      "file": "documents/troubleshooting.md",
+      "lines": [
+        7,
+        11
+      ],
+      "passage": "- Ensure that the directory you're putting your documents in is the\n  folder paperless is watching. With docker, this setting is performed\n  in the `docker-compose.yml` file. Without Docker, look at the\n  `CONSUMPTION_DIR` setting. Don't adjust this setting if you're\n  using docker.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L7-L11"
+    },
+    {
+      "file": "documents/troubleshooting.md",
+      "lines": [
+        13,
+        15
+      ],
+      "passage": "- Ensure that the broker is up and running. Paperless does its task\n  processing asynchronously, and for documents to arrive at the task\n  processor, it needs the broker to run.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L13-L15"
+    },
+    {
+      "file": "documents/troubleshooting.md",
+      "lines": [
+        17,
+        18
+      ],
+      "passage": "- Ensure that the task processor is running. Docker does this\n  automatically. Manually invoke the task processor by executing",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L17-L18"
+    },
+    {
+      "file": "documents/troubleshooting.md",
+      "lines": [
+        26,
+        27
+      ],
+      "passage": "- Go to the admin interface, and check if there are failed tasks. If\n  so, the tasks will contain an error message.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L26-L27"
+    }
+  ],
+  "generated_result": {
+    "answer": "Check these first, based on the supplied documents:\n\n1. **Confirm the watched folder.** Make sure you are putting files in the folder Paperless is watching. With Docker, this is set in `docker-compose.yml`; without Docker, check the `CONSUMPTION_DIR` setting. Do not adjust this setting if you are using Docker. [S3]\n\n2. **Check that the broker is running.** Paperless processes tasks asynchronously, and documents need the broker to reach the task processor. [S3]\n\n3. **Check that the task processor is running.** Docker starts it automatically; otherwise, run `celery --app paperless worker`. [S3]\n\n4. **Check the logs and failed tasks.** Inspect Paperless output for errors, and check the admin interface for failed tasks, which contain error messages. [S3]\n\n5. **If files are only picked up at startup,** enable filesystem polling with `PAPERLESS_CONSUMER_POLLING_INTERVAL`. [S2]",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "cd5d6623e694a1582e8c54d39b16fdc29e1a17a525569dd79e6a17dbaf213250",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Adding documents to Paperless-ngx",
+          "The consumption directory"
+        ],
+        "start_line": 156,
+        "end_line": 183,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### The consumption directory\n\nThe primary method of getting documents into your database is by putting\nthem in the consumption directory. The consumer waits patiently, looking\nfor new additions to this directory. When it finds them,\nthe consumer goes about the process of parsing them with the OCR,\nindexing what it finds, and storing it in the media directory. You should\nthink of this folder as a temporary location, as files will be re-created\ninside Paperless-ngx and removed from the consumption folder.\n\nGetting stuff into this directory is up to you. If you're running\nPaperless on your local computer, you might just want to drag and drop\nfiles there, but if you're running this on a server and want your\nscanner to automatically push files to this directory, you'll need to\nsetup some sort of service to accept the files from the scanner.\nTypically, you're looking at an FTP server like\n[Proftpd](http://www.proftpd.org/) or a Windows folder share with\n[Samba](https://www.samba.org/).\n\n!!! warning\n\n    Files found in the consumption directory that are consumed will be\n    removed from the consumption directory and stored inside the\n    Paperless-ngx file structure using any settings / storage paths\n    you have specified. This action is performed as safely as possible\n    but this means it is expected that files in the consumption\n    directory will no longer exist (there) after being consumed.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "0a24c791d8523a2c015a69d91deed47987a1d646ff24e10fe89699b82afc0eca",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "Consumer fails to pickup any new files"
+        ],
+        "start_line": 44,
+        "end_line": 54,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## Consumer fails to pickup any new files\n\nIf you notice that the consumer will only pickup files in the\nconsumption directory at startup, but won't find any other files added\nlater, you will need to enable filesystem polling with the configuration\noption [`PAPERLESS_CONSUMER_POLLING_INTERVAL`](configuration.md#PAPERLESS_CONSUMER_POLLING_INTERVAL).\n\nThis will disable automatic listening for filesystem changes and\npaperless will manually check the consumption directory for changes\ninstead.\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "050b54862f1081d736b5f25c735f46e567edb9893790b07dbe6389dc22595ec7",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "No files are added by the consumer"
+        ],
+        "start_line": 3,
+        "end_line": 28,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## No files are added by the consumer\n\nCheck for the following issues:\n\n- Ensure that the directory you're putting your documents in is the\n  folder paperless is watching. With docker, this setting is performed\n  in the `docker-compose.yml` file. Without Docker, look at the\n  `CONSUMPTION_DIR` setting. Don't adjust this setting if you're\n  using docker.\n\n- Ensure that the broker is up and running. Paperless does its task\n  processing asynchronously, and for documents to arrive at the task\n  processor, it needs the broker to run.\n\n- Ensure that the task processor is running. Docker does this\n  automatically. Manually invoke the task processor by executing\n\n  ```shell-session\n  celery --app paperless worker\n  ```\n\n- Look at the output of paperless and inspect it for any errors.\n\n- Go to the admin interface, and check if there are failed tasks. If\n  so, the tasks will contain an error message.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "8449196626f47610c1d41fc432f6a82c25d128f1e8c4fb8b3142ca6be07f3c6d",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Adding documents to Paperless-ngx",
+          "Incoming Email {#incoming-mail}"
+        ],
+        "start_line": 262,
+        "end_line": 281,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "    When defining a mail rule with a folder, you may need to try different\n    characters to define how the sub-folders are separated. Common values\n    include \".\", \"/\" or \"\\|\", but this varies by the mail server.\n    Check the documentation for your mail server. In the event of an error\n    fetching mail from a certain folder, check the Paperless logs. When a\n    folder is not located, Paperless will attempt to list all folders found\n    in the account to the Paperless logs.\n\n!!! note\n\n    Paperless will process the rules in the order defined in the admin page.\n\n    You can define catch-all rules and have them executed last to consume\n    any documents not matched by previous rules. Such a rule may assign an\n    \"Unknown mail document\" tag to consumed documents so you can inspect\n    them further.\n\nPaperless is set up to check your mails every 10 minutes. This can be\nconfigured via [`PAPERLESS_EMAIL_TASK_CRON`](configuration.md#PAPERLESS_EMAIL_TASK_CRON)\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "c2a06e9e85a20c9a3a06f6c6778a44052382e13dd7d7726c5aee39bcd45739a4",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Architecture"
+        ],
+        "start_line": 1240,
+        "end_line": 1286,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "## Architecture\n\nPaperless-ngx consists of the following components:\n\n- **The webserver:** This serves the administration pages, the API,\n  and the new frontend. This is the main tool you'll be using to interact\n  with paperless. You may start the webserver directly with\n\n  ```shell-session\n  cd /path/to/paperless/src/\n  granian --interface asginl --ws \"paperless.asgi:application\"\n  ```\n\n  or by any other means such as Apache `mod_wsgi`.\n\n- **The consumer:** This is what watches your consumption folder for\n  documents. However, the consumer itself does not really consume your\n  documents. Now it notifies a task processor that a new file is ready\n  for consumption. I suppose it should be named differently. This was\n  also used to check your emails, but that's now done elsewhere as\n  well.\n\n  Start the consumer with the management command `document_consumer`:\n\n  ```shell-session\n  cd /path/to/paperless/src/\n  python3 manage.py document_consumer\n  ```\n\n- **The task processor:** Paperless relies on [Celery - Distributed\n  Task Queue](https://docs.celeryq.dev/en/stable/index.html) for doing\n  most of the heavy lifting. This is a task queue that accepts tasks\n  from multiple sources and processes these in parallel. It also comes\n  with a scheduler that executes certain commands periodically.\n\n  This task processor is responsible for:\n  - Consuming documents. When the consumer finds new documents, it\n    notifies the task processor to start a consumption task.\n  - The task processor also performs the consumption of any\n    documents you upload through the web interface.\n  - Consuming emails. It periodically checks your configured\n    accounts for new emails and notifies the task processor to\n    consume the attachment of an email.\n  - Maintaining the search index and the automatic matching\n    algorithm. These are things that paperless needs to do from time\n    to time in order to operate properly.\n\n"
+      }
+    ],
+    "answer_language": "English",
+    "used_labels": [
+      "[S2]",
+      "[S3]"
+    ],
+    "input_tokens": 3794,
+    "output_tokens": 325
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "pass",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "All checks are supported. The command matches S3, and polling advice preserves the condition in S2. Answer exceeds the requested 120-word target."
+}
+}

@@ -1,0 +1,106 @@
+{
+  "case_id": "Q08",
+  "question": "Processing document.pdf fails with [Errno 13] Permission denied in the consumption directory. What should I check?",
+  "expected_language": "EN",
+  "answerable": true,
+  "expected_answer": "Check that Paperless can delete files there and that the host directory is readable and writable. For Docker, verify USERMAP_UID and USERMAP_GID match the intended host user/group when they differ from the default 1000.",
+  "expected_evidence": [
+    {
+      "file": "documents/troubleshooting.md",
+      "lines": [
+        144,
+        147
+      ],
+      "passage": "This happens when paperless does not have permission to delete files\ninside the consumption directory. Ensure that `USERMAP_UID` and\n`USERMAP_GID` are set to the user id and group id you use on the host\noperating system, if these are different from `1000`. See [Docker setup](setup.md#docker).",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md#L144-L147"
+    }
+  ],
+  "generated_result": {
+    "answer": "The supplied documents indicate that this error occurs when Paperless does not have permission to delete files inside the consumption directory [S1].\n\nCheck the following:\n\n- Ensure that `USERMAP_UID` and `USERMAP_GID` are set to the user ID and group ID you use on the host operating system, if these differ from `1000` [S1].\n- Ensure that you can read and write to the consumption directory on the host [S1].\n\nThe sources do not cover other causes of this error.",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "ea1191ef7ad8ca0e7e6e80e42143186f7fd9dcce8c8a2e33618f84ea15f69a49",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "Permission denied errors in the consumption directory"
+        ],
+        "start_line": 136,
+        "end_line": 151,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## Permission denied errors in the consumption directory\n\nYou might encounter errors such as:\n\n```shell-session\nThe following error occurred while consuming document.pdf: [Errno 13] Permission denied: '/usr/src/paperless/src/../consume/document.pdf'\n```\n\nThis happens when paperless does not have permission to delete files\ninside the consumption directory. Ensure that `USERMAP_UID` and\n`USERMAP_GID` are set to the user id and group id you use on the host\noperating system, if these are different from `1000`. See [Docker setup](setup.md#docker).\n\nAlso ensure that you are able to read and write to the consumption\ndirectory on the host.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "2bb5280202dfbc96fbb494f53e2c7735ee3bb2ab18b666d39a04710704d9aa63",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "Consumer fails with a FileNotFoundError"
+        ],
+        "start_line": 180,
+        "end_line": 209,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## Consumer fails with a FileNotFoundError\n\nYou might find messages like these in your log files:\n\n```\n[ERROR] [paperless.consumer] Error while consuming document SCN_0001.pdf: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/ocrmypdf.io.yhk3zbv0/origin.pdf'\nTraceback (most recent call last):\n  File \"/app/paperless/src/paperless_tesseract/parsers.py\", line 261, in parse\n    ocrmypdf.ocr(**args)\n  File \"/usr/local/lib/python3.8/dist-packages/ocrmypdf/api.py\", line 337, in ocr\n    return run_pipeline(options=options, plugin_manager=plugin_manager, api=True)\n  File \"/usr/local/lib/python3.8/dist-packages/ocrmypdf/_sync.py\", line 385, in run_pipeline\n    exec_concurrent(context, executor)\n  File \"/usr/local/lib/python3.8/dist-packages/ocrmypdf/_sync.py\", line 302, in exec_concurrent\n    pdf = post_process(pdf, context, executor)\n  File \"/usr/local/lib/python3.8/dist-packages/ocrmypdf/_sync.py\", line 235, in post_process\n    pdf_out = metadata_fixup(pdf_out, context)\n  File \"/usr/local/lib/python3.8/dist-packages/ocrmypdf/_pipeline.py\", line 798, in metadata_fixup\n    with pikepdf.open(context.origin) as original, pikepdf.open(working_file) as pdf:\n  File \"/usr/local/lib/python3.8/dist-packages/pikepdf/_methods.py\", line 923, in open\n    pdf = Pdf._open(\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/ocrmypdf.io.yhk3zbv0/origin.pdf'\n```\n\nThis probably indicates paperless tried to consume the same file twice.\nThis can happen for a number of reasons, depending on how documents are\nplaced into the consume folder, such as how a scanner may modify a file multiple times as it scans.\nTry adjusting the\n[file stability delay](configuration.md#PAPERLESS_CONSUMER_STABILITY_DELAY) to a larger value.\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "bd678915db47777e431921014f8680c9553adf0ae99cd035cac9c2d217362bc9",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "Consumption fails with \"Ghostscript PDF/A rendering failed\""
+        ],
+        "start_line": 253,
+        "end_line": 260,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## Consumption fails with \"Ghostscript PDF/A rendering failed\"\n\nNewer versions of OCRmyPDF will fail if it encounters errors during processing.\nThis is intentional as the output archive file may differ in unexpected or undesired\nways from the original. As the logs indicate, if you encounter this error you can set\n`PAPERLESS_OCR_USER_ARGS: '{\"continue_on_soft_render_error\": true}'` to try to 'force'\nprocessing documents with this issue.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "0a24c791d8523a2c015a69d91deed47987a1d646ff24e10fe89699b82afc0eca",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "Consumer fails to pickup any new files"
+        ],
+        "start_line": 44,
+        "end_line": 54,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## Consumer fails to pickup any new files\n\nIf you notice that the consumer will only pickup files in the\nconsumption directory at startup, but won't find any other files added\nlater, you will need to enable filesystem polling with the configuration\noption [`PAPERLESS_CONSUMER_POLLING_INTERVAL`](configuration.md#PAPERLESS_CONSUMER_POLLING_INTERVAL).\n\nThis will disable automatic listening for filesystem changes and\npaperless will manually check the consumption directory for changes\ninstead.\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "050b54862f1081d736b5f25c735f46e567edb9893790b07dbe6389dc22595ec7",
+        "file": "documents/troubleshooting.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Troubleshooting",
+          "No files are added by the consumer"
+        ],
+        "start_line": 3,
+        "end_line": 28,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/troubleshooting.md",
+        "text": "## No files are added by the consumer\n\nCheck for the following issues:\n\n- Ensure that the directory you're putting your documents in is the\n  folder paperless is watching. With docker, this setting is performed\n  in the `docker-compose.yml` file. Without Docker, look at the\n  `CONSUMPTION_DIR` setting. Don't adjust this setting if you're\n  using docker.\n\n- Ensure that the broker is up and running. Paperless does its task\n  processing asynchronously, and for documents to arrive at the task\n  processor, it needs the broker to run.\n\n- Ensure that the task processor is running. Docker does this\n  automatically. Manually invoke the task processor by executing\n\n  ```shell-session\n  celery --app paperless worker\n  ```\n\n- Look at the output of paperless and inspect it for any errors.\n\n- Go to the admin interface, and check if there are failed tasks. If\n  so, the tasks will contain an error message.\n\n"
+      }
+    ],
+    "answer_language": "English",
+    "used_labels": [
+      "[S1]"
+    ],
+    "input_tokens": 3590,
+    "output_tokens": 151
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "partial",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "S1 supports all recommended checks. The closing claim that the sources cover no other causes is not verified and should be omitted."
+}
+}

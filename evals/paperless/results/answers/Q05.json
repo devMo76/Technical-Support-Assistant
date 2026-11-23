@@ -1,0 +1,111 @@
+{
+  "case_id": "Q05",
+  "question": "What must be installed before following the Docker Compose installation instructions?",
+  "expected_language": "EN",
+  "answerable": true,
+  "expected_answer": "Docker and Docker Compose must be installed.",
+  "expected_evidence": [
+    {
+      "file": "documents/setup.md",
+      "lines": [
+        47,
+        48
+      ],
+      "passage": "- Docker and Docker Compose must be [installed](https://docs.docker.com/engine/install/){:target=\"\\_blank\"}.\n- macOS users will need [GNU sed](https://formulae.brew.sh/formula/gnu-sed) with support for running as `sed` as well as [wget](https://formulae.brew.sh/formula/wget).",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md#L47-L48"
+    }
+  ],
+  "generated_result": {
+    "answer": "Docker and Docker Compose must be installed before following the Docker Compose installation instructions [S1]. The installation script also lists the same requirement [S2].",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "ef6603217665d68fe95262068c96048f08ac99ad5d4f78183ec3e87694a379bf",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Docker Compose Install {#docker}",
+          "Prerequisites"
+        ],
+        "start_line": 64,
+        "end_line": 67,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "#### Prerequisites\n\n- Docker and Docker Compose must be [installed](https://docs.docker.com/engine/install/){:target=\"\\_blank\"}.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "c1c6f7474dea9cc8184f7b1b50832fcbce6e687f5fd6978571c2506c803b0def",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Installation Script {#docker_script}",
+          "Prerequisites"
+        ],
+        "start_line": 45,
+        "end_line": 49,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "#### Prerequisites\n\n- Docker and Docker Compose must be [installed](https://docs.docker.com/engine/install/){:target=\"\\_blank\"}.\n- macOS users will need [GNU sed](https://formulae.brew.sh/formula/gnu-sed) with support for running as `sed` as well as [wget](https://formulae.brew.sh/formula/wget).\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "d9323c07d68f5b36b0e1b95393a87fd25c0b89d4d77c7fc1812409f7e3b158a2",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Installation Script {#docker_script}"
+        ],
+        "start_line": 38,
+        "end_line": 44,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "## Installation Script {#docker_script}\n\nPaperless-ngx provides an interactive script for Docker Compose setups.\nIt asks a few configuration questions, then creates the required files,\npulls the image, starts the containers, and creates your [superuser](usage.md#superusers)\naccount. In short, it automates the [Docker Compose setup](#docker) described below.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "57493ffab8e7d2ecf27efd11303c922f795821f308d56f5d6eac1fb47bbc93a8",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Docker Compose Install {#docker}",
+          "Installation"
+        ],
+        "start_line": 68,
+        "end_line": 119,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "#### Installation\n\n1.  Go to the [/docker/compose directory on the project\n    page](https://github.com/paperless-ngx/paperless-ngx/tree/main/docker/compose){:target=\"\\_blank\"}\n    and download one `docker-compose.*.yml` file for your preferred\n    database backend. Save it in a local directory as `docker-compose.yml`.\n    Also download `docker-compose.env` and `.env` into that same directory.\n\n    If you want to enable optional support for Office and other documents, download a\n    file with `-tika` in the file name.\n\n    !!! tip\n\n        For new installations, it is recommended to use PostgreSQL as the\n        database backend.\n\n2.  Modify `docker-compose.yml` as needed. For example, you may want to\n    change the paths for `consume`, `media`, and other directories to\n    use bind mounts.\n    Find the line that specifies where to mount the directory, e.g.:\n\n    ```yaml\n    - ./consume:/usr/src/paperless/consume\n    ```\n\n    Replace the part _before_ the colon with your local directory:\n\n    ```yaml\n    - /home/jonaswinkler/paperless-inbox:/usr/src/paperless/consume\n    ```\n\n    You may also want to change the default port that the webserver will\n    use from the default (8000) to something else, e.g. for port 8010:\n\n    ```yaml\n    ports:\n      - 8010:8000\n    ```\n\n3.  Modify `docker-compose.env` with any configuration options you need.\n    See the [configuration documentation](configuration.md) for all options.\n\n    You may also need to set `USERMAP_UID` and `USERMAP_GID` to\n    the UID and GID of your user on the host system. Use `id -u` and\n    `id -g` to get these values. This ensures both the container and the\n    host user can write to the consumption directory. If your UID and\n    GID are `1000` (the default for the first normal user on many\n    systems), this usually works out of the box without\n    modifications. Run `id \"username\"` to check.\n\n    !!! note\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "5a29129ff634c0c36fc100384cbc4f4aea15813de7cf19b47f4e80655fa25699",
+        "file": "documents/setup.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Installation",
+          "Docker Compose Install {#docker}",
+          "Installation"
+        ],
+        "start_line": 120,
+        "end_line": 129,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/setup.md",
+        "text": "        You can utilize Docker secrets for configuration settings by\n        appending `_FILE` to configuration values. For example [`PAPERLESS_DBUSER`](configuration.md#PAPERLESS_DBUSER)\n        can be set using `PAPERLESS_DBUSER_FILE=/var/run/secrets/password.txt`.\n\n4.  Run `docker compose pull`. This pulls the image from the GitHub container registry\n    by default, but you can pull from Docker Hub by changing the `image`\n    line to `image: paperlessngx/paperless-ngx:latest`.\n\n5.  Run `docker compose up -d`. This will create and start the necessary containers.\n\n"
+      }
+    ],
+    "answer_language": "English",
+    "used_labels": [
+      "[S1]",
+      "[S2]"
+    ],
+    "input_tokens": 3029,
+    "output_tokens": 51
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "partial",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "Both sources support the prerequisite. The extra installation-script attribution is not established by the inspected excerpts."
+}
+}

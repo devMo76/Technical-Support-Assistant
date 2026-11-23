@@ -1,0 +1,114 @@
+{
+  "case_id": "Q03",
+  "question": "هل تغيير صلاحيات الوسم يغيّر صلاحيات المستندات التي تحمل هذا الوسم؟",
+  "expected_language": "AR",
+  "answerable": true,
+  "expected_answer": "لا. صلاحيات الوسم تخص الوسم نفسه، ولا تغيّر صلاحيات المستندات المرتبطة به.",
+  "expected_evidence": [
+    {
+      "file": "documents/usage.md",
+      "lines": [
+        385,
+        386
+      ],
+      "passage": "Object-level permissions only apply to the object itself. In other words, setting permissions\n    for a Tag will _not_ affect the permissions of documents that have the Tag.",
+      "source_url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md#L385-L386"
+    }
+  ],
+  "generated_result": {
+    "answer": "لا، وفقاً للمصادر المتاحة، تغيير صلاحيات الوسم لا يغيّر صلاحيات المستندات التي تحمل هذا الوسم. فالصلاحيات على مستوى الكائن تنطبق على الكائن نفسه فقط [S3].\n\nكما أن المستندات المرتبطة بالوسوم وغيرها من الكائنات المرتبطة قد تحتفظ بالتعيينات الحالية حتى إذا كان المستخدم لا يستطيع رؤية تفاصيل الكائن المرتبط، إذ يتم عرضه كـ«خاص» في بعض الحالات [S1][S2].",
+    "sources": [
+      {
+        "label": "S1",
+        "chunk_id": "f42f163da7f1ff4bba4b4694ab92a2ba36531c3c7e122388c12fa02041a9805d",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Users and Groups",
+          "Detailed Explanation of Object Permissions {#object-permissions}"
+        ],
+        "start_line": 461,
+        "end_line": 462,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "For related metadata such as tags, correspondents, document types, and storage paths, object visibility and document assignment are intentionally distinct. A user may still retain or submit a known object ID when editing a document even if that related object is displayed as _Private_ or omitted from search and selection results. This allows documents to preserve existing assignments that the current user cannot necessarily inspect in detail.\n\n"
+      },
+      {
+        "label": "S2",
+        "chunk_id": "40a4861d48b7037e987959313262d8d12c59f3853a5c4da93c939701d109bb3c",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Users and Groups",
+          "Detailed Explanation of Object Permissions {#object-permissions}"
+        ],
+        "start_line": 453,
+        "end_line": 460,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "#### Detailed Explanation of Object Permissions {#object-permissions}\n\n| Type  | Details                                                                                                                                                                                                                                                                                                                                  |\n| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Owner | By default objects are only visible and editable by their owner.<br/>Only the object owner can grant permissions to other users or groups.<br/>Additionally, only document owners can create share links and add / remove custom fields.<br/>For backwards compatibility objects can have no owner which makes them visible to any user. |\n| View  | Confers the ability to view (not edit) a document, tag, etc.<br/>Users without 'view' (or higher) permissions will be shown _'Private'_ in place of the object name for example when viewing a document with a tag for which the user doesn't have permissions.                                                                          |\n| Edit  | Confers the ability to edit (and view) a document, tag, etc.                                                                                                                                                                                                                                                                             |\n\n"
+      },
+      {
+        "label": "S3",
+        "chunk_id": "647f5218a52a068961430bd51c2a0cd7464366dc4f4d26783f6ca60d91940fad",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions"
+        ],
+        "start_line": 374,
+        "end_line": 390,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "## Permissions\n\nPermissions in Paperless-ngx are based around ['global' permissions](#global-permissions) as well as\n['object-level' permissions](#object-permissions). Global permissions determine which parts of the\napplication a user can access (e.g. Documents, Tags, Settings) and object-level determine which\nobjects are visible or editable. All objects have an 'owner' and 'view' and 'edit' permissions which\ncan be granted to other users or groups. The paperless-ngx permissions system uses the built-in user\nmodel of the backend framework, Django.\n\n!!! tip\n\n    Object-level permissions only apply to the object itself. In other words, setting permissions\n    for a Tag will _not_ affect the permissions of documents that have the Tag.\n\nPermissions can be set using the new \"Permissions\" tab when editing documents, or bulk-applied\nin the UI by selecting documents and choosing the \"Permissions\" button.\n\n"
+      },
+      {
+        "label": "S4",
+        "chunk_id": "d7163dba85f8340690e1b837c2358552936ab2be53b5518781d4eb891aaf9265",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Permissions",
+          "Default permissions"
+        ],
+        "start_line": 391,
+        "end_line": 399,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### Default permissions\n\n[Workflows](#workflows) provide advanced ways to control permissions.\n\nFor objects created via the web UI (tags, doc types, etc.) the default is to set the current user\nas owner and no extra permissions, but you can explicitly set these under Settings > Permissions.\n\nDocuments consumed via the consumption directory do not have an owner or additional permissions set by default, but again, can be controlled with [Workflows](#workflows).\n\n"
+      },
+      {
+        "label": "S5",
+        "chunk_id": "ce0cdb215be289c8194a915fb17772c04cf37c583e4e7697692b005a3e7de880",
+        "file": "documents/usage.md",
+        "version": "v3.5.1",
+        "headings": [
+          "Usage",
+          "Workflows",
+          "Workflow permissions"
+        ],
+        "start_line": 781,
+        "end_line": 790,
+        "url": "https://github.com/paperless-ngx/paperless-ngx/blob/35b0439195bbdb87a6d519152e6782abe0720c3b/docs/usage.md",
+        "text": "### Workflow permissions\n\nAll users who have application permissions for editing workflows can see the same set\nof workflows. In other words, workflows themselves intentionally do not have an owner or permissions.\n\nGiven their potentially far-reaching capabilities, including changing the permissions of existing documents, you may want to restrict access to workflows.\n\nUpon migration, existing installs will grant access to workflows to users who can add\ndocuments (and superusers who can always access all parts of the app).\n\n"
+      }
+    ],
+    "answer_language": "Arabic",
+    "used_labels": [
+      "[S1]",
+      "[S2]",
+      "[S3]"
+    ],
+    "input_tokens": 2910,
+    "output_tokens": 234
+  },
+  "review": {
+  "correctness": "pass",
+  "citation_support": "pass",
+  "language": "pass",
+  "abstention": "not_applicable",
+  "notes": "S3 supports the main answer. S1 and S2 support the additional explanation, which could be omitted for brevity."
+}
+}
