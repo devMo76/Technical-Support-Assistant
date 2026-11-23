@@ -96,6 +96,22 @@ def fuse_rankings(keyword_results, semantic_results):
     )[:RESULT_LIMIT]
 
 
+def retrieve(question):
+    question = question.strip()
+
+    if not question:
+        raise ValueError("Please enter a question.")
+
+    chunks = load_chunks()
+    embeddings = load_embeddings()
+    validate_corpus(chunks, embeddings)
+
+    keyword_results = keyword_candidates(question, chunks)
+    semantic_results = semantic_candidates(question, embeddings)
+
+    return fuse_rankings(keyword_results, semantic_results)
+
+
 def main():
     chunks = load_chunks()
     embeddings = load_embeddings()

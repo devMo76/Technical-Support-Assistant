@@ -5,7 +5,12 @@ from anthropic import Anthropic
 from dotenv import load_dotenv
 
 
-def ask_claude(message: str, *, max_tokens: int = 512):
+def ask_claude(
+    message: str,
+    *,
+    max_tokens: int = 512,
+    system: str = "",
+):
     load_dotenv(Path(__file__).parent / ".env")
 
     api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -24,6 +29,7 @@ def ask_claude(message: str, *, max_tokens: int = 512):
         max_retries=0,
     ) as client:
         return client.messages.create(
+            system=system,
             model=model,
             max_tokens=max_tokens,
             output_config={"effort": effort},
