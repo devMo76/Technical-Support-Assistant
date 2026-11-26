@@ -6,8 +6,10 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.auth import AuthenticatedUser, get_current_user, require_admin
+from backend.chat import router as chat_router
 
 app = FastAPI(title="Technical Support Assistant")
+app.include_router(chat_router)
 load_dotenv(Path(__file__).parent / ".env")
 app.add_middleware(
     CORSMiddleware,
