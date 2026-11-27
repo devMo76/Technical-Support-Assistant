@@ -24,3 +24,121 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* These colours apply only inside the support workspace. */
+.support-workspace {
+  --chat-bg: #f7f6f2;
+  --chat-sidebar: #efeee8;
+  --chat-surface: #ffffff;
+  --chat-question: #eeece5;
+  --chat-text: #262622;
+  --chat-muted: #66645c;
+  --chat-border: #d9d6cd;
+  --chat-control: #8a877c;
+  --chat-accent: #9c4e32;
+  --chat-on-accent: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .support-workspace {
+    --chat-bg: #20201e;
+    --chat-sidebar: #191918;
+    --chat-surface: #2a2a27;
+    --chat-question: #30302b;
+    --chat-text: #eceae2;
+    --chat-muted: #b5b2a9;
+    --chat-border: #41413b;
+    --chat-control: #858178;
+    --chat-accent: #d59b7d;
+    --chat-on-accent: #20201e;
+  }
+}
+
+/* Markdown elements are generated from Claude's answer. */
+.support-answer {
+  font-family: Georgia, "Times New Roman", serif;
+  overflow-wrap: anywhere;
+}
+
+.support-answer[lang="ar"] {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  line-height: 1.9;
+}
+
+.support-answer > :first-child {
+  margin-top: 0;
+}
+
+.support-answer p {
+  margin-bottom: 1rem;
+}
+
+.support-answer :is(h1, h2, h3, h4, h5, h6) {
+  margin: 1.5rem 0 0.75rem;
+  font-family: var(--font-geist-sans), Tahoma, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.support-answer :is(ul, ol) {
+  margin: 0.75rem 0 1.25rem;
+  padding-inline-start: 1.5rem;
+}
+
+.support-answer ul {
+  list-style: disc;
+}
+
+.support-answer ol {
+  list-style: decimal;
+}
+
+.support-answer li {
+  margin: 0.5rem 0;
+}
+
+.support-answer a {
+  color: var(--chat-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.support-answer blockquote {
+  margin: 1rem 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 3px solid var(--chat-border);
+}
+
+.support-answer code {
+  display: inline-block;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  background: var(--chat-question);
+  font-family: var(--font-geist-mono), Consolas, monospace;
+  font-size: 0.8em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.support-answer pre code {
+  display: block;
+  padding: 0;
+  background: transparent;
+  font-size: 14px;
+  overflow-wrap: normal;
+}
+
+.support-answer table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-geist-sans), Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.support-answer :is(th, td) {
+  min-width: 120px;
+  padding: 10px;
+  border: 1px solid var(--chat-border);
+  text-align: start;
+}
