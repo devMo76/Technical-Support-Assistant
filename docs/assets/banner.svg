@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+<title id="title">Technical Support Assistant</title><desc id="desc">Documentation in. Grounded answers out. A practical RAG project with English and Arabic support.</desc>
+<rect width="1200" height="300" rx="18" fill="#20201e"/>
+<rect x="42" y="39" width="42" height="42" rx="10" fill="none" stroke="#d59b7d"/>
+<text x="63" y="69" fill="#eceae2" font-family="Georgia,serif" font-size="29" text-anchor="middle">T</text>
+<text x="101" y="65" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="15" letter-spacing="2">DOCUMENTATION-GROUNDED SUPPORT</text>
+<text x="42" y="149" fill="#eceae2" font-family="Georgia,serif" font-size="58">Technical Support Assistant</text>
+<text x="45" y="195" fill="#d59b7d" font-family="Arial,sans-serif" font-size="24">Documentation in. Grounded answers out.</text>
+<path d="M45 226H1155" stroke="#41413b"/>
+<text x="45" y="262" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">Next.js + Tailwind   /   FastAPI   /   Supabase   /   Gemini embeddings   /   Claude</text>
+</svg>

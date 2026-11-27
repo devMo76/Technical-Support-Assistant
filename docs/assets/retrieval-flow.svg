@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-labelledby="title desc">
+<title id="title">Hybrid retrieval workflow</title><desc id="desc">Question to parallel keyword and semantic search, then Reciprocal Rank Fusion and Claude answer generation.</desc>
+<rect width="1200" height="390" rx="16" fill="#20201e"/>
+<text x="35" y="52" fill="#eceae2" font-family="Arial,sans-serif" font-size="26">Two search methods. One grounded answer.</text>
+<path d="M235 195L260 195" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M260 142L260 247" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M260 142L285 142" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M260 247L285 247" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M545 142L570 142" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M545 247L570 247" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M570 142L570 247" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M570 195L595 195" stroke="#b5b2a9" stroke-width="2"/>
+<path d="M855 195L905 195" stroke="#b5b2a9" stroke-width="2"/>
+<rect x="35" y="145" width="200" height="100" rx="12" fill="#2a2a27" stroke="#d59b7d"/>
+<text x="135.0" y="184" text-anchor="middle" fill="#eceae2" font-family="Arial,sans-serif" font-weight="bold" font-size="19">Your question</text>
+<text x="135.0" y="213" text-anchor="middle" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">English or Arabic</text>
+<rect x="285" y="100" width="260" height="85" rx="12" fill="#2a2a27" stroke="#d59b7d"/>
+<text x="415.0" y="139" text-anchor="middle" fill="#eceae2" font-family="Arial,sans-serif" font-weight="bold" font-size="19">Keyword search</text>
+<text x="415.0" y="168" text-anchor="middle" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">BM25: exact terms</text>
+<rect x="285" y="205" width="260" height="85" rx="12" fill="#2a2a27" stroke="#d59b7d"/>
+<text x="415.0" y="244" text-anchor="middle" fill="#eceae2" font-family="Arial,sans-serif" font-weight="bold" font-size="19">Semantic search</text>
+<text x="415.0" y="273" text-anchor="middle" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">Gemini + cosine</text>
+<rect x="595" y="145" width="260" height="100" rx="12" fill="#2a2a27" stroke="#d59b7d"/>
+<text x="725.0" y="184" text-anchor="middle" fill="#eceae2" font-family="Arial,sans-serif" font-weight="bold" font-size="19">Fuse the rankings</text>
+<text x="725.0" y="213" text-anchor="middle" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">RRF: top 5 sources</text>
+<rect x="905" y="145" width="260" height="100" rx="12" fill="#2a2a27" stroke="#d59b7d"/>
+<text x="1035.0" y="184" text-anchor="middle" fill="#eceae2" font-family="Arial,sans-serif" font-weight="bold" font-size="19">Claude answer</text>
+<text x="1035.0" y="213" text-anchor="middle" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">Text + citations</text>
+<text x="35" y="355" fill="#b5b2a9" font-family="Arial,sans-serif" font-size="16">Concept diagram of the implemented pipeline; not a live request.</text></svg>
