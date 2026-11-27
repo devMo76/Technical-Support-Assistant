@@ -5,9 +5,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/devMo76/Technical-Support-Assistant/actions/workflows/ci.yml"><img src="https://github.com/devMo76/Technical-Support-Assistant/actions/workflows/ci.yml/badge.svg" alt="Project checks workflow status" /></a>
-  <img src="https://img.shields.io/badge/status-working%20prototype-9C4E32?style=flat" alt="Status: working prototype" />
-  <img src="https://img.shields.io/badge/languages-English%20%2B%20Arabic-475569?style=flat" alt="English and Arabic" />
+  <a href="https://github.com/devMo76/Technical-Support-Assistant/actions/workflows/ci.yml">
+    <img src="https://github.com/devMo76/Technical-Support-Assistant/actions/workflows/ci.yml/badge.svg" alt="Project checks workflow status" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>Working prototype</strong> · English &amp; Arabic
 </p>
 
 <p align="center">
